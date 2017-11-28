@@ -1,0 +1,13 @@
+1511450829206	geckodriver	INFO	geckodriver 0.18.0
+1511450829225	geckodriver	INFO	Listening on 127.0.0.1:60979
+1511450831309	geckodriver::marionette	INFO	Starting browser D:\Program Files\Tencent\Mozilla Firefox\firefox.exe with args ["-marionette"]
+1511450834152	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///D:/Program%20Files/Tencent/Mozilla%20Firefox/omni.ja!/components/addonManager.js:65
+1511450835116	Marionette	INFO	Enabled via --marionette
+[Child 8720] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1511450839009	Marionette	INFO	Listening on port 60989
+1511450839303	Marionette	WARN	TLS certificate errors will be ignored for this session
+1511450839359	Marionette	DEBUG	Register listener.js for window 4294967297
+1511450846607	addons.productaddons	WARN	Failed downloading via XHR, status: 0, reason: error
+ner.js for window 6442450945
+[Parent 8956] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 10028] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
