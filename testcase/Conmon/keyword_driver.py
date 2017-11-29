@@ -1,10 +1,12 @@
 # -*- coding:utf-8 -*-
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium .webdriver.support.wait import WebDriverWait
 from selenium import webdriver
 import os, time, sys
 import xlrd.sheet
 from testcase.Conmon import log
+from selenium.webdriver.common.action_chains import ActionChains
 reload(sys)
 sys.setdefaultencoding('utf-8')
 from config import globalparameter as gl
@@ -230,10 +232,12 @@ class Action(object):
     @staticmethod
     def waitting(time):
         try:
-            return time.sleep(time)
+            return time.sleep(float(time))
         except AttributeError:
             print 'waitting error'
             log.log().error(u"延时出错%s" %time)
+
+    #退出浏览器
     def quit(self):
         try:
             self.driver.quit()
@@ -255,6 +259,117 @@ class Action(object):
     def not_empty(s):
         return s and s.strip()
 
+    # 定义获取元素文本属性的关键字
+    def gettext(self, tag, loc):
+        try:
+            text = self.find_element(tag, loc).text()
+            print text
+        except AttributeError:
+            self.keyword_log.error(u"获取text信息失败")
+
+    # 定义获取输入框尺寸的关键字
+    def getsize(self, tag, loc):
+        try:
+            size = self.find_element(tag, loc).size()
+            print size
+        except AttributeError:
+            self.keyword_log.error(u'获取输入框尺寸失败')
+
+    # 定义获取元素属性值的关键字，其中attribute代表获取的属性类型（id,name...）
+    def getattribute(self, tag, loc, attribute):
+        try:
+            attri = self.find_element(tag, loc).get_attribute(attribute)
+            print attri
+        except AttributeError:
+            self.keyword_log.error(u'获取元素属性失败')
+
+    # 定义鼠标操作,鼠标拖动操作需要四个参数
+    def mouse_operate(self, tag, loc, operate, tagert =None):
+        try:
+            element = self.find_element(tag, loc)
+            if operate == 'right':
+                ActionChains(self.driver).context_click(element).perform()
+            elif operate == 'double':
+                ActionChains(self.driver).double_click(element).perform()
+            elif operate == 'move':
+                ActionChains(self.driver).move_to_element(element).perform()
+            elif operate == 'drop':
+                ActionChains(self.driver).drag_and_drop(element, tagert).perform()
+            else:
+                print u'您输入的参数有误，第三个参数应为right,double,move,drop之一'
+        except AttributeError:
+            self.keyword_log.error(u'鼠标操作参数输入有误')
+
+    # 定义隐式等待关键字
+    def implicitlywait(self, time):
+        try:
+            self.driver.implicitly_wait(time)
+        except AttributeError:
+            self.keyword_log.error(u'隐式等待出错')
+
+    # 定义页面加载超时关键字
+    def pageloadtimeout(self, time):
+        try:
+            self.driver.set_page_load_timeout(float(time))
+        except AttributeError:
+            self.keyword_log.error(u'超时设置出错')
+
+     # 定义切换Alert关键字
+    def switchtoalert(self):
+        try:
+            self.driver.switch_to_alert()
+        except AttributeError:
+            self.keyword_log.error(u'切换Alrt出错')
+
+    # 定义确认Alert关键字
+    def confirmalert(self):
+        try:
+            self.driver.switch_to_alert().accept()
+        except AttributeError:
+            self.keyword_log.error(u'Alert确认出错')
+    # 取消Alert
+    def cancelalert(self):
+        try:
+            self.driver.switch_to_alert().dismiss()
+        except AttributeError:
+            self.keyword_log.error(u'Alert取消出错')
+
+    # 定义按键盘关键字
+    def keypress(self, tag, loc, key):
+        try:
+            ele = self.find_element(tag, loc)
+            ele.clear()
+            ele.send_keys(key)
+        except AttributeError:
+            self.keyword_log.error(u"%s按键出错%s" % (self,key))
+
+    # 定义切换frame关键字
+    def switchtoframe(self, frame):
+        try:
+            self.driver.switch_to_frame(frame)
+        except AttributeError:
+            self.keyword_log.error(u'切换frame：%s出错'%frame)
+
+    # 切换到默认frame
+    def switchtodefaultframe(self):
+        try:
+            self.driver.switch_to_default_content()
+        except AttributeError:
+            self.keyword_log.error(u'切换默认frame出错')
+
+    # 清理cookie
+    def clearcookie(self, name):
+        try:
+            self.driver.delete_cookie(name)
+        except AttributeError:
+            self.keyword_log.error(u'清理cookie出错')
+
+    # 关闭当前窗口
+    def close(self):
+        try:
+            self.driver.close()
+        except AttributeError:
+            self.keyword_log.error(u'关闭窗口出错')
 
 if __name__ == '__main__':
     A = Action()
