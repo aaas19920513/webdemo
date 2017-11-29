@@ -1,15 +1,47 @@
 关键字驱动说明：tag为元素定位id、classname等，loc为元素名称
+
 startbrowser(a)                                  启动浏览器  a参数为浏览器名称
+
 get(url)                                         打开网页
+
 on_page(pagetitle)                               检查网页打开是否正确    参数为当前网址title
+
 click(tag,loc)                                   点击
+
 input(tag,loc,text)                              输入
+
 quit()                                           退出浏览器
+
 waitting（time）                                 延时
+
 clickmore(tag,loc)                               点击一组元素   同click
+
 gettext(tag,loc)                                 获取元素文本信息
+
 getsize（tag,loc）                               获取输入框的size
+
 getattribute(tag, loc, attribute)                获取元素属性
+
 mouse_operate(tag, loc, operate, tagert =None)   鼠标操作，第三个参数应为right（右键）,double（双击）,move（悬停）,drop（鼠标拖动）之一，选择drop操作时，需要tagert（鼠标拖动目标元素，从loc拖到到tagert）参数
+
 implicitlywait（time）                            隐式等待
-pageloadtimeout(self, time):                     页面加载超时关键字
+
+pageloadtimeout(time):                            页面加载超时
+
+switchtoalert()                                   切换到Alert
+
+confirmalert()                                    确认Alert
+
+cancelalert()                                     取消Alert
+
+keypress(tag, loc, key)                           按键盘，参考https://www.cnblogs.com/mengyu/p/6942584.html
+
+switchtoframe(frame)                              切换到frame
+
+switchtodefaultframe()                            切换到默认frame
+
+clearcookie()                                     清理cookie
+
+close()                                           关闭当前窗口
+
+screenshot（name）                                截图，name为保存截图取名（会在name前生成时间）
