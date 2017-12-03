@@ -39,6 +39,6 @@ class BaiduPage(BasePage.Action):
         self.find_element(*self.zhidao_loc).click()
 
     def screenshot(self):
-        self.saveScreenshot(self.driver, self.name)
+        self.saveScreenshot(self.name)
 
 
