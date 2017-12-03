@@ -30,7 +30,8 @@ class Action(object):
         self.url = url
         self.pagetitle = pagetitle
         self.mylog = log.log()
-    def startbrowser(self, browser = 'firefox '):
+
+    def startbrowser(self, browser= 'firefox '):
         print u'启动浏览器'
         try:
             if browser.lower() == 'firefox':
@@ -166,14 +167,14 @@ class Action(object):
         return time.strftime('%Y-%m-%d-%H_%M_%S', time.localtime(time.time()))
 
     # saveScreenshot:通过图片名称，进行截图保存
-    def saveScreenshot(self, driver, name):
+    def saveScreenshot(self, name):
         """
         快照截图
         name:图片名称
         """
         # 获取当前路径
         # print os.getcwd()
-        image = driver.save_screenshot(self.savePngName(name))
+        image = self.driver.save_screenshot(self.savePngName(name))
         return image
 
     def get(self, url):
@@ -248,7 +249,6 @@ class Action(object):
             ele = self.find_element(tag,loc)
             ele.clear()
             ele.send_keys(text)
-
         except AttributeError:
             self.mylog.error(u'输入'+text+u'出错')
 
