@@ -1,17 +1,19 @@
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 from selenium.webdriver.common.by import By
 from selenium .webdriver.support.wait import WebDriverWait
 from selenium import webdriver
 import os, time, sys
 import xlrd.sheet
 from testcase.Conmon import log
+from assertpy import assert_that
 reload(sys)
 sys.setdefaultencoding('utf-8')
 from config import globalparameter as gl
 
 
+
 class Action(object):
-    driver = None
+
 #    base_url = None
 #    pagetitle = None
 
@@ -25,10 +27,8 @@ class Action(object):
 #        self.desired_capabilities = desired_capabilities
 #        self.proxy = proxy
 #        self.keep_alive = keep_alive
-    def __init__(self, driver=None, url=None, pagetitle=None):
+    def __init__(self, driver):
         self.driver = driver
-        self.url = url
-        self.pagetitle = pagetitle
         self.mylog = log.log()
 
     def startbrowser(self, browser= 'firefox '):
@@ -43,19 +43,18 @@ class Action(object):
             else:
                 print u'启动浏览器失败'
         except AttributeError:
-            self.mylog.error(u'未能正确打开驱动：'+browser)
+            self.mylog.error(u'%s未能正确打开驱动：%s'%(self, browser))
 
     # 定义open方法
-    def _open(self, url, pagetitle):
+    def open(self, url, pagetitle):
         print u'正在打开网址：'+url
-        # 使用get打开访问链接地址
         try:
             self.driver.get(url)
             self.driver.maximize_window()
         # 使用assert进行校验，打开的链接地址是否与配置的地址一致。调用on_page()方法
             assert self.on_page(pagetitle), u"打开页面失败 %s" % url
         except AttributeError:
-            self.mylog.error(u'未能正确打开页面:' + url)
+            self.mylog.error(u'%s未能正确打开页面:%s' %(self, url))
 
     # 重写元素定位方法
     def find_element(self, *loc):
@@ -135,18 +134,18 @@ class Action(object):
         返回值内容为：("id","inputid")、("xpath","/html/body/header/div[1]/nav")格式
         """
         table = Action.readtable(filepath, sheetno)
-        #从第2行开始，获取每行第2、3个的值
+        # 从第2行开始，获取每行第2、3个的值
         for i in range(1, table.nrows):
             if index in table.row_values(i):
                 return table.row_values(i)[1:3]
 
-    # savePngName:生成图片的名称
-    def savePngName(self, name):
+    # PngName:生成图片的名称
+    def PngName(self, name, Bool):
         """
         name：自定义图片的名称
         """
         day = time.strftime('%Y-%m-%d', time.localtime(time.time()))
-        fp = gl.report_path + day + "\\image"
+        fp = gl.report_path + day + "\\image" +'\\'+ Bool
         tm = self.saveTime()
         type = ".png"
         if os.path.exists(fp):
@@ -167,14 +166,14 @@ class Action(object):
         return time.strftime('%Y-%m-%d-%H_%M_%S', time.localtime(time.time()))
 
     # saveScreenshot:通过图片名称，进行截图保存
-    def saveScreenshot(self, name):
+    def Screenshot(self, name, Bool):
         """
         快照截图
         name:图片名称
         """
         # 获取当前路径
         # print os.getcwd()
-        image = self.driver.save_screenshot(self.savePngName(name))
+        image = self.driver.save_screenshot(self.PngName(name, Bool))
         return image
 
     def get(self, url):
@@ -187,7 +186,7 @@ class Action(object):
         except AttributeError:
             self.mylog.error(u'未能正确打开页面:' + url)
 
-    #带参数的反射函数
+    # 带参数的反射函数
     def action_sign(self, action_name, *args):
         try:
             act = getattr(self, action_name)
@@ -196,45 +195,11 @@ class Action(object):
         except AttributeError:
             print u'请检查函数名或者参数是否有误'
 
-    #不带参数的反射函数
+    # 不带参数的反射函数
     def action(self, action_name):
 
         act = getattr(self, action_name)
         return act()
-
-
-
-
-    #查找元素,tag为定位方法, loc为元素定位参数
-    def sendtext(self, tag, loc,text):
-        try:
-            if tag.lower() == 'id':
-                ele_loc = (By.ID, loc)
-                self.find_element(*ele_loc).send_key(text)
-            elif tag.lower() == 'class_name':
-                ele_loc = (By.CLASS_NAME, loc)
-                self.find_element(*ele_loc).send_key(text)
-            elif tag.lower() == 'css_selector':
-                ele_loc = (By.CSS_SELECTOR, loc)
-                self.find_element(*ele_loc).send_key(text)
-            elif tag.lower() == 'name':
-                ele_loc = (By.NAME, loc)
-                self.find_element(*ele_loc).send_key(text)
-            elif tag.lower() == 'link_text':
-                ele_loc = (By.LINK_TEXT, loc)
-                self.find_element(*ele_loc).send_key(text)
-            elif tag.lower() == 'xpath':
-                ele_loc = (By.XPATH, loc)
-                self.find_element(*ele_loc).send_key(text)
-            elif tag.lower() == 'tag_name':
-                ele_loc = (By.TAG_NAME, loc)
-                self.find_element(*ele_loc).send_key(text)
-            elif tag.lower() == 'partial_link_text':
-                ele_loc = (By.PARTIAL_LINK_TEXT, loc)
-                self.find_element(*ele_loc).send_key(text)
-                print u'方法名%s输入不对' %tag
-        except AttributeError:
-            self.mylog.error(u"%s找不到元素%s" % (self, tag))
 
     def click(self, tag, loc):
         print u'通过'+tag+u'，点击'+loc
@@ -253,25 +218,53 @@ class Action(object):
             self.mylog.error(u'输入'+text+u'出错')
 
     @staticmethod
-    def waitting(time):
+    def waitting(times):
         try:
             return time.sleep(time)
         except AttributeError:
-            log.log.error(u'waitting'+time+u'出错')
+            log.log().error(u"延时%sS出错" % times)
 
-
-
-
+    def judge(self, that, ways, value, name):
+        """
+        断言并截图
+        :param that: 断言对象
+        :param ways: 断言方法，例如相等，包含，以xx字符开头
+        :param value: 断言文本
+        :param name: 截图的名字
+        :return:     返回断言布尔值
+        """
+        try:
+            if ways.lower() == 'contains':
+                if assert_that(that).contains(value):
+                    self.Screenshot(name, 'Pass')
+                else:
+                    self.Screenshot(name, 'Fail')
+                return assert_that(that).contains(value)
+            if ways.lower() == 'equal':
+                if assert_that(that).contains(value):
+                    self.Screenshot(name, 'Pass')
+                else:
+                    self.Screenshot(name, 'Fail')
+                return assert_that(that).contains(value)
+            if ways.lower() == 'startwith':
+                if assert_that(that).contains(value):
+                    self.Screenshot(name, 'Pass')
+                else:
+                    self.Screenshot(name, 'Fail')
+                return assert_that(that).contains(value)
+        except AttributeError:
+            self.mylog.error(u'断言出错:%s' % value)
 
 
 
 if __name__ =='__main__':
-    a = Action()
-    a.action_sign('startbrowser', 'ie')
-    a.action_sign(u'get', u'https://www.baidu.com/')
-  #  a.action_sign('click', 'xpath', './/*[@id=\'u1\']/a[1]')
-    aaa = 'id', 'kw', 'selenium'
-    a.action_sign('input', *aaa)
-   # a.action_sign('input', 'id', 'kw', 'selenium')
-    a.action_sign('click', 'id', 'su')
 
+    def run():
+        a = Action()
+        a.action_sign('startbrowser', 'ie')
+        a.action_sign('get', u'https://www.baidu.com/')
+  #  a.action_sign('click', 'xpath', './/*[@id=\'u1\']/a[1]')
+        aaa = 'id', 'kw', 'selenium'
+        a.action_sign('input', *aaa)
+   # a.action_sign('input', 'id', 'kw', 'selenium')
+        a.action_sign('click', 'id', 'su')

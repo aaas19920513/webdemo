@@ -4,11 +4,13 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 import unittest
-from testcase.Conmon import HTMLTestRunner
+#from NewHtml import HTMLTestRunner
 import time
 import os.path
 from config import globalparameter as gl
-#from  testcase.Conmon import send_mail
+from  testcase.Conmon import send_mail
+from testcase.Conmon import HTMLTestRunner
+
 
 
 casepath = "."
@@ -16,7 +18,7 @@ casepath = "."
 result = gl.report_path
 
 def Creatsuite():
-#	mail_body = None
+
 	#定义单元测试容器
 	testunit = unittest.TestSuite()
 
@@ -47,9 +49,9 @@ if os.path.exists(tdresult):
 	#运行测试用例
 	runner.run(test_case)
 	fp.close()  #关闭报告文件
-#	time.sleep(10)
-#	send_mail=send_mail.send_email()
-#	send_mail.sendnewReport()
+	time.sleep(10)
+	send_mail=send_mail.send_email()
+	send_mail.sendnewReport()
 
 
 else:

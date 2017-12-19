@@ -4,11 +4,11 @@ import time,os
 '''
 配置全局参数
 '''
-# 项目的绝对路径（因为 windows执行时需要绝对路径才能执行通过）
-project_path = "F:\\Mselenium\\MySelenium"
+# 项目的绝对路径
+project_path = os.path.split(os.path.realpath(__file__))[0].rstrip("\config")
 
 # 获取项目路径
-#project_path = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)[0]), '.'))
+# project_path = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)[0]), '.'))
 
 # 测试用例代码存放路径（用于构建suite,注意该文件夹下的文件都应该以test开头命名）
 test_case_path = project_path+"\\test_case"

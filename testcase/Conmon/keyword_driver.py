@@ -7,6 +7,7 @@ import os, time, sys
 import xlrd.sheet
 from testcase.Conmon import log
 from selenium.webdriver.common.action_chains import ActionChains
+from assertpy import assert_that
 reload(sys)
 sys.setdefaultencoding('utf-8')
 from config import globalparameter as gl
@@ -62,7 +63,7 @@ class Action(object):
             WebDriverWait(self.driver, 15).until(lambda driver: driver.find_element(*loc).is_displayed())
             return self.driver.find_element(*loc)
         except AttributeError:
-            self.keyword_log.error(u"%s找不到元素%s"% (self, loc))
+            self.keyword_log.error(u"%s找不到元素%s" % (self, loc))
 
     # 重写一组元素定位方法
     def find_elements(self, *loc):
@@ -77,6 +78,17 @@ class Action(object):
     def switch_frame(self, loc):
         try:
             return self.driver.switch_to_frame(loc)
+        except AttributeError:
+            self.keyword_log.error(u"%s找不到元素%s" % (self, loc))
+
+    # 重写定义send_keys方法,这里的loc格式为（'id','元素名'）
+    def send_keys(self, loc, value, clear_first=True, click_first=True):
+        try:
+            if click_first:
+                self.find_element(*loc).click()
+            if clear_first:
+                self.find_element(*loc).clear()
+            self.find_element(*loc).send_keys(value)
         except AttributeError:
             self.keyword_log.error(u"%s找不到元素%s" % (self, loc))
 
@@ -123,13 +135,13 @@ class Action(object):
             if index in table.row_values(i):
                 return table.row_values(i)[1:3]
 
-    # savePngName:生成图片的名称
-    def savePngName(self, name):
+    # PngName:生成图片的名称
+    def PngName(self, name, Bool):
         """
         name：自定义图片的名称
         """
         day = time.strftime('%Y-%m-%d', time.localtime(time.time()))
-        fp = gl.report_path + day + "\\image"
+        fp = gl.report_path + day + "\\image" +'\\'+ Bool
         tm = self.saveTime()
         type = ".png"
         if os.path.exists(fp):
@@ -150,14 +162,14 @@ class Action(object):
         return time.strftime('%Y-%m-%d-%H_%M_%S', time.localtime(time.time()))
 
     # saveScreenshot:通过图片名称，进行截图保存
-    def screenshot(self, name):
+    def Screenshot(self, name, Bool):
         """
         快照截图
         name:图片名称
         """
         # 获取当前路径
         # print os.getcwd()
-        image = self.driver.save_screenshot(self.savePngName(name))
+        image = self.driver.save_screenshot(self.PngName(name, Bool))
         return image
 
     # 带参数的反射函数
@@ -175,7 +187,7 @@ class Action(object):
         return act()
 
     # 查找元素,tag为定位方法, loc为元素定位参数
-    def sendtext(self, tag, loc,text):
+    def sendtext(self, tag, loc, text):
         try:
             if tag.lower() == 'id':
                 ele_loc = (By.ID, loc)
@@ -223,6 +235,7 @@ class Action(object):
     def input(self, tag, loc, text):
         try:
             ele = self.find_element(tag, loc)
+            ele.click()
             ele.clear()
             ele.send_keys(text)
         except AttributeError:
@@ -348,7 +361,7 @@ class Action(object):
         try:
             self.driver.switch_to_frame(frame)
         except AttributeError:
-            self.keyword_log.error(u'切换frame：%s出错'%frame)
+            self.keyword_log.error(u'切换frame：%s出错' % frame)
 
     # 切换到默认frame
     def switchtodefaultframe(self):
@@ -371,20 +384,65 @@ class Action(object):
         except AttributeError:
             self.keyword_log.error(u'关闭窗口出错')
 
+    def judge(self, that, ways, value, name):
+        """
+        断言并截图
+        :param that: 断言对象
+        :param ways: 断言方法，例如相等，包含，以xx字符开头
+        :param value: 断言文本
+        :param name: 截图的名字
+        :return:     返回断言布尔值
+        """
+        try:
+            if ways.lower() == 'contains':
+                try:
+                    if assert_that(that).contains(value):
+                        self.Screenshot(name, 'Pass')
+                        print '='*10+u'testcase pass'+'='*10
+                except:
+                    self.Screenshot(name, 'Fail')
+                    print '='*10+u'testcase fail'+'='*10
+ #               return assert_that(that).contains(value)
+            if ways.lower() == 'equal':
+                try:
+                    if assert_that(that).contains(value):
+                        self.Screenshot(name, 'Pass')
+                        print '='*10+u'testcase pass'+'='*10
+                except:
+                    self.Screenshot(name, 'Fail')
+                    print '='*10+u'testcase fail'+'='*10
+
+            if ways.lower() == 'startwith':
+                try:
+                    if assert_that(that).contains(value):
+                        self.Screenshot(name, 'Pass')
+                        print '='*10+u'testcase pass'+'='*10
+                except:
+                    self.Screenshot(name, 'Fail')
+                    print '='*10+u'testcase fail'+'='*10
+
+        except AttributeError:
+            self.keyword_log.error(u'断言出错:%s' % value)
+
 if __name__ == '__main__':
     A = Action()
-    sheetno = 0
-    filepath = 'C:\\Users\\Administrator\\Desktop\\test.xls'
-    table = Action.readtable(filepath, sheetno)
-    rows = table.nrows
+#    sheetno = 0
+#    filepath = 'C:\\Users\\Administrator\\Desktop\\test.xls'
+ #   table = Action.readtable(filepath, sheetno)
+#    rows = table.nrows
 
 
-    def build_para():
+#    def build_para():
 
-        for i in range(1, rows):
-            value = table.row_values(i)[1:6]
+#        for i in range(1, rows):
+#            value = table.row_values(i)[1:6]
             # 关键字
-            key_word, tag, loc, para, judge = value[0], value[1], value[2], value[3], value[4]
-            print key_word, tag, loc, type(para), judge
+#           key_word, tag, loc, para, judge = value[0], value[1], value[2], value[3], value[4]
+#            print key_word, tag, loc, para, judge
+ #           print type(key_word), type(tag), type(loc),type(para),type(judge)
 
-    build_para()
+#    build_para()
+    A.action_sign('startbrowser','ie')
+    A.action_sign('get','https://www.baidu.com/')
+    A.action_sign('input','id','kw','23333')
+    A.action_sign('judge',A.driver.title,'contains','测试')

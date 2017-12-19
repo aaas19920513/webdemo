@@ -30,9 +30,9 @@ class LoginPage(BasePage.Action):
 	userid_loc = loc.locate("ele_0006",filepath)
 
 	#Action
-	def open(self):
+	def openurl(self,url,pagetitle):
 		#调用page中的_open打开连接
-		self._open(self.url, self.pagetitle)
+		self.open(url, pagetitle)
 
 	#调用send_keys，输入用户名
 	def input_username(self, username):

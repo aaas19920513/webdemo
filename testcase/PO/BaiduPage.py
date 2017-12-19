@@ -14,8 +14,8 @@ class BaiduPage(BasePage.Action):
     zhidao_loc = (By.NAME,'tj_zhidao')
     name = 'searchbaidu'
     #   打开页面
-    def open(self):
-        self._open(self.url, self.pagetitle)
+    def openbaidu(self,url,pagetitle):
+        self.open(url,pagetitle)
 
     #   输入关键词
     def input_keywords(self, keywords):
@@ -38,7 +38,7 @@ class BaiduPage(BasePage.Action):
     def click_zhidao(self):
         self.find_element(*self.zhidao_loc).click()
 
-    def screenshot(self):
-        self.saveScreenshot(self.name)
+    def screenshot(self, Bool):
+        self.Screenshot(self.name, Bool)
 
 

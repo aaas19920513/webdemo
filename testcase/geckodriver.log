@@ -1,31 +1,35 @@
-1511878969081	geckodriver	INFO	geckodriver 0.18.0
-1511878969103	geckodriver	INFO	Listening on 127.0.0.1:57270
-1511453067864	geckodriver::marionette	INFO	Starting browser D:\Program Files\Tencent\Mozilla Firefox\firefox.exe with args ["-marionette"]
-1511453068397	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///D:/Program%20Files/Tencent/Mozilla%20Firefox/omni.ja!/components/addonManager.js:65
-1511453069653	Marionette	INFO	Enabled via --marionette
-[Parent 8200] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
-[Child 8472] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
-[Child 8472] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
-1511453073255	Marionette	INFO	Listening on port 51431
-1511453073430	Marionette	WARN	TLS certificate errors will be ignored for this session
-1511453073531	Marionette	DEBUG	Register listener.js for window 4294967297
-ource://gre/modules/Extension.jsm:892:37
-_startup@resource://gre/modules/Extension.jsm:1166:7
-observe@resource://gre/modules/AsyncShutdown.jsm:534:9
-Current stack
-runSafeSyncWithoutClone@resource://gre/modules/ExtensionUtils.jsm:63:129
-emit/promises<@resource://gre/modules/ExtensionUtils.jsm:256:55
-emit@resource://gre/modules/ExtensionUtils.jsm:255:20
-emit@resource://gre/modules/Extension.jsm:892:37
-_startup@resource://gre/modules/Extension.jsm:1166:7
-observe@resource://gre/modules/AsyncShutdown.jsm:534:9
-]]
-JavaScript error: jar:file:///D:/Program%20Files/Tencent/Mozilla%20Firefox/omni.ja!/components/nsAsyncShutdown.js, line 119: Error: We have already registered a distinct blocker with the same name: Crash Reporter: blocking on minidumpgeneration.
-JavaScript error: jar:file:///D:/Program%20Files/Tencent/Mozilla%20Firefox/omni.ja!/components/nsAsyncShutdown.js, line 119: Error: We have already registered a distinct blocker with the same name: Crash Reporter: blocking on minidumpgeneration.
- "unload" for "https://www.mingdao.com/login.htm"
-1511093650931	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "4294967301"
-1511093650932	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "4294967303"
-1511093651049	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.mingdao.com/login.htm"
+1513651685622	geckodriver	INFO	geckodriver 0.18.0
+1513651685628	geckodriver	INFO	Listening on 127.0.0.1:60071
+1513651687644	geckodriver::marionette	INFO	Starting browser D:\Program Files\Mozilla Firefox\firefox.exe with args ["-marionette"]
+1513651688189	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Administrator\AppData\Local\openvr\openvrpaths.vrpath
+JavaScript error: resource://addoninstaller/common.js, line 109: SyntaxError: "0"-prefixed octal literals and octal escape sequences are deprecated; for octal literals use the "0o" prefix instead
+JavaScript error: resource://addoninstaller/common.js, line 109: SyntaxError: "0"-prefixed octal literals and octal escape sequences are deprecated; for octal literals use the "0o" prefix instead
+[Parent 9932, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+Unable to read VR Path Registry from C:\Users\Administrator\AppData\Local\openvr\openvrpaths.vrpath
+[Child 10060, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1513651689681	Marionette	INFO	Listening on port 60088
+1513651690772	Marionette	WARN	TLS certificate errors will be ignored for this session
+1513651690818	Marionette	DEBUG	Register listener.js for window 4294967297
+1513651690832	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1513651690942	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1513651690942	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+Unable to read VR Path Registry from C:\Users\Administrator\AppData\Local\openvr\openvrpaths.vrpath
+JavaScript error: https://ss1.bdstatic.com/5eN1bjq8AAUYm2zgoY3K/r/www/cache/static/protocol/https/plugins/every_cookie_4644b13.js, line 4: ReferenceError: c is not defined
+1513651691215	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.baidu.com/"
+1513651691266	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.baidu.com/"
+[Parent 9932, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Parent 9932, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 10880, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 10880, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+Unable to read VR Path Registry from C:\Users\Administrator\AppData\Local\openvr\openvrpaths.vrpath
+[Child 10820, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 10820, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ngdao.com/login.htm"
 1511093651595	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.mingdao.com/login.htm"
 1511093651991	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
 JavaScript error: https://assets-cdn.kf5.com/supportbox_v2/js/scripts.js?v=201711161810, line 3: TypeError: b.ownerDocument is null

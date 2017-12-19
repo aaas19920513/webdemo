@@ -9,9 +9,10 @@ class Testlogin(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         print 'test start'
-        cls.driver = webdriver.Firefox()
+        cls.driver = webdriver.Ie()
         cls.url = 'https://www.mingdao.com/login.htm'
-        cls.login = LoginPage.LoginPage(cls.driver, cls.url, u'明道')
+        cls.login = LoginPage.LoginPage(cls.driver,)
+        cls.title = u"明道"
 
     @parameterized.expand([('case01', '3555', 'sadfasdf', u'密码不正确'),
                            ('case02', 'asdfsaf', '', u'用户名不正确'),
@@ -24,7 +25,7 @@ class Testlogin(unittest.TestCase):
             print u"========【" + case_id + u"】" + case_summary + "============="
             print '用户名：'+username
             print '密码：'+password
-            self.login.open()
+            self.login.open(self.url, self.title)
             self.login.input_username(username)
             self.login.input_password(password)
             self.login.click_submit()

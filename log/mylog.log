@@ -91,3 +91,7 @@
 2017-11-26 23:22:31,529 ERROR 未能正确打开页面:u'https://www.baidu.com/'' 
 2017-11-26 23:31:28,470 ERROR 未能正确打开页面:u'https://www.baidu.com/'' 
 2017-11-26 23:32:22,217 ERROR 未能正确打开页面:u'https://www.baidu.com/'' 
+2017-12-12 23:15:48,542 ERROR 未能正确打开页面:https://www.baidu.com/' 
+2017-12-12 23:15:48,569 ERROR <PO.BaiduPage.BaiduPage object at 0x02057050>找不到元素('id', 'kw')' 
+2017-12-12 23:16:58,066 ERROR 未能正确打开页面:https://www.baidu.com/' 
+2017-12-12 23:16:58,068 ERROR <PO.BaiduPage.BaiduPage object at 0x01F87050>找不到元素('id', 'kw')' 

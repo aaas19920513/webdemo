@@ -1,7 +1,7 @@
 import better_exceptions
 import unittest
 from parameterized import parameterized
-
+from selenium import webdriver
 
 class TestAdd(unittest.TestCase):
 
@@ -18,4 +18,5 @@ class TestAdd(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(verbosity=2)
+   unittest.main(verbosity=2)
+

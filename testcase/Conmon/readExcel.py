@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# encoding=utf-8
+
 
 import xlrd
 from config import globalparameter as gl
@@ -41,4 +41,5 @@ if __name__ == "__main__":
     sheetName = "Sheet1"
     data = ReadExcel(filepath, sheetName)
     dict = data.dict_data()
-    print dict[0], dict[1]
+    for i in range(6):
+          print dict[i]
