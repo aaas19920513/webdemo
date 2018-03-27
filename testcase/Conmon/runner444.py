@@ -1,17 +1,10 @@
 # -*- coding:utf-8 -*-
 __author__ = 'tuihou'
 
-# -*-coding:utf-8 -*-
-
 from keyword_driver import Action
 from config import globalparameter as gl
 import locate
-import time
 import unittest
-from test import test_support
-
-
-
 
 filepath = gl.test_data_path
 
@@ -22,7 +15,6 @@ class Runstep(unittest.TestCase):
     def setUpClass(cls):
     # cls.driver = webdriver.Firefox()
 	# cls.driver.implicitly_wait(30)
-#	    cls.filepath = gl.test_data_path
         print "start"
 
 
@@ -36,10 +28,10 @@ class Runstep(unittest.TestCase):
                 continue
             param_text += '"' + params[index] + '",'
         param_text = param_text[0:-1]
-        if len(param_text) != 0 and key != 'diff':
+        if len(param_text) != 0:
             step = 'A.action_sign' + "(" + "\'" + key + '\',' + param_text + ")"
-        elif key == 'diff':
-            step = 'A.action_sign' + "(\'" + key + '\',' + tag + ',\'' + loc + '\',\'' + param + '\',\'' + wish + "\')"
+        # elif key == 'gettext':
+        #     step = 'A.action_sign' + "(\'" + key + '\',' + tag + ',\'' + loc + '\',\'' + param + '\',\'' + wish + "\')"
         else:
             step = 'A.action' + "(" + "\'" + key + '\'' + ")"
         return step
@@ -52,23 +44,31 @@ class Runstep(unittest.TestCase):
         for step in steps:
             if step[0] == data[0]:
                 desc = step[2]
-                key_word, sign, param = step[3], step[4], step[5]
+                key_word, sign, param, wish = step[3], step[4], step[5], step[7]
                 if sign != "":
                     ele = locate.locate(sign, filepath, 3)
                     tag, loc = ele[0], ele[1]
                     if key_word.lower() == 'input':
                         param = data[4]
                         step = self.buildStep(key_word, tag, loc, param)
-#                        print desc + ':' + step
+                        print desc + ':' + step
                         k += 1
                         eval(step)
+                    elif key_word.lower() == 'gettext':
+                        step = self.buildStep(key_word, tag, loc)
+                        text = eval(step)
+                        if text == wish:
+                            A.action_sign('Screenshot', data[0], 'PASS')
+                        else:
+                            A.action_sign('Screenshot', data[0], 'FAIL')
+
                     else:
                         step = self.buildStep(key_word, tag, loc, param)
-#                        print desc + ':' + step
+                        print desc + ':' + step
                         eval(step)
                 else:
                     step = self.buildStep(key_word, param)
-#                    print desc + ':' + step
+                    print desc + ':' + step
                     eval(step)
     @staticmethod
     def getTestFunc(*txt):
@@ -93,9 +93,6 @@ def __generateTestCases():
                     print data
                     setattr(Runstep, 'test_%s_%s' % (data[0], data[1]), Runstep.getTestFunc(*data))
 __generateTestCases()
-
-# def test_main():
-#     test_support.run_unittest(Runstep)
 
 if __name__ == "__main__":
     unittest.main()
