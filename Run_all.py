@@ -17,7 +17,7 @@ result = gl.report_path
 
 def creat_suite():
     testunit = unittest.TestSuite()
-    discover = unittest.defaultTestLoader.discover(casepath, pattern='case*.py', top_level_dir=None)
+    discover = unittest.defaultTestLoader.discover(casepath, pattern='runner*.py', top_level_dir=None)
     for test_suite in discover:
         for casename in test_suite:
             testunit.addTest(casename)
