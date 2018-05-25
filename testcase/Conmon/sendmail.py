@@ -18,7 +18,7 @@ string = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789'
 mailto_list = ['345203857@qq.com', '873969472@qq.com']
 mail_host = "smtp.163.com"  #设置服务器
 mail_user = "18566774520"    #用户名
-mail_pass = "liaoguanghua202"   #口令
+mail_pass = "asd19920513"   #口令
 mail_postfix = "163.com"  #发件箱的后缀
 day = time.strftime('%Y-%m-%d', time.localtime(time.time()))
 
